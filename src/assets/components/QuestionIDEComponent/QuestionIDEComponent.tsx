@@ -51,7 +51,11 @@ interface Question {
     tags: string;
 }
 
-const QuestionIDEComponent: React.FC = () => {
+interface QuestionIDEComponentProps {
+    question: Question;
+}
+
+const QuestionIDEComponent: React.FC<QuestionIDEComponentProps> = ({ question }) => {
     const [language, setLanguage] = useState<string>("javascript");
     const [currCode, setCurrCode] = useState<string>(`// JavaScript Example
 const greeting = "Hello, World!";
@@ -67,28 +71,31 @@ function example() {
     const [output, setOutput] = useState<string>("");
     const [personalNotes, setPersonalNotes] = useState<string>("");
 
-    const question: Question = {
-        id: 1,
-        title: "Two Sum",
-        description: "Given an array of integers nums and an integer target, return indices of the two numbers such that they add up to target.",
-        input: "[2,7,11,15], 9",
-        output: "[0,1]",
-        difficulty: "Easy",
-        testcases: [
-            {"input": "[2,7,11,15], 9", "output": "[0,1]"},
-            {"input": "[3,2,4], 6", "output": "[1,2]"},
-            {"input": "[3,3], 6", "output": "[0,1]"},
-            {"input": "[2,5,5,11], 10", "output": "[1,2]"},
-            {"input": "[1,2,3,4,5], 9", "output": "[3,4]"},
-            {"input": "[1, 3, 7, 9, 11], 15", "output": "[1, 3]"},
-            {"input": "[0, 4, 3, 0], 0", "output": "[0, 3]"},
-            {"input": "[-1, -2, -3, -4, -5], -8", "output": "[2, 4]"},
-            {"input": "[1, 1, 1, 1, 1], 2", "output": "[0, 1]"},
-            {"input": "[1, 2, 3, 4, 5], 11", "output": "[]"}
-        ],
-        constraints: { time: "O(n)", space: "O(n)" },
-        tags: "Array, Hash Table"
-    };
+    console.log(question);
+    
+
+    // const question: Question = {
+    //     id: 1,
+    //     title: "Two Sum",
+    //     description: "Given an array of integers nums and an integer target, return indices of the two numbers such that they add up to target.",
+    //     input: "[2,7,11,15], 9",
+    //     output: "[0,1]",
+    //     difficulty: "Easy",
+    //     testcases: [
+    //         { "input": "[2,7,11,15], 9", "output": "[0,1]" },
+    //         { "input": "[3,2,4], 6", "output": "[1,2]" },
+    //         { "input": "[3,3], 6", "output": "[0,1]" },
+    //         { "input": "[2,5,5,11], 10", "output": "[1,2]" },
+    //         { "input": "[1,2,3,4,5], 9", "output": "[3,4]" },
+    //         { "input": "[1, 3, 7, 9, 11], 15", "output": "[1, 3]" },
+    //         { "input": "[0, 4, 3, 0], 0", "output": "[0, 3]" },
+    //         { "input": "[-1, -2, -3, -4, -5], -8", "output": "[2, 4]" },
+    //         { "input": "[1, 1, 1, 1, 1], 2", "output": "[0, 1]" },
+    //         { "input": "[1, 2, 3, 4, 5], 11", "output": "[]" }
+    //     ],
+    //     constraints: { time: "O(n)", space: "O(n)" },
+    //     tags: "Array, Hash Table"
+    // };
 
     // const [question, setQuestion] = useState<Question | null>(null);
 
@@ -341,7 +348,7 @@ function example() {
                     </div>
                     <h2>Testcases</h2>
                     <div className="testcases">
-                        {question?.testcases.map((testcase, index) => (
+                        {question && question.testcases && question?.testcases.map((testcase, index) => (
                             <div key={index} className="testcase">
                                 <h3>Testcase {index + 1}</h3>
                                 <p><strong>Input:</strong> {testcase.input}</p>
@@ -350,8 +357,8 @@ function example() {
                         ))}
                     </div>
                     <h2>Constraints</h2>
-                    <p><strong>Time:</strong> {question?.constraints.time}</p>
-                    <p><strong>Space:</strong> {question?.constraints.space}</p>
+                    <p><strong>Time:</strong> {question && question.constraints && question?.constraints.time}</p>
+                    <p><strong>Space:</strong> {question && question.constraints && question?.constraints.space}</p>
                 </div>
                 <div id='notes'>
                     <ReactQuill theme="snow" value={personalNotes} onChange={(notes) => setPersonalNotes(notes)} />
@@ -400,6 +407,14 @@ function example() {
                         onClick={handleMinimapToggle}
                     >
                         {minimap ? "Hide Minimap" : "Show Minimap"}
+                    </button>
+
+                    <button
+                        className="button run-button"
+                        onClick={handleSave}
+                        title="Ctrl/Cmd + S"
+                    >
+                        Run
                     </button>
 
                     <button

@@ -1,14 +1,15 @@
-import React from 'react'
 import './App.css'
-import QuestionIDEComponent from './assets/components/QuestionIDEComponent/QuestionIDEComponent'
-import QuestionIDEC2 from './assets/components/QuestionIDEComponent/QuestionIDEC2'
+import QuestionPageComponent from './assets/components/QuestionPageComponent/QuestionPageComponent'
+// import QuestionIDEComponent from './assets/components/QuestionIDEComponent/QuestionIDEComponent'
+import { BrowserRouter } from 'react-router-dom'
 
 function App() {
 
     return (
-        <React.Fragment>
-            <QuestionIDEComponent />
-        </React.Fragment>
+        < BrowserRouter >
+            <QuestionPageComponent />
+            {/* <QuestionIDEComponent /> */}
+        </BrowserRouter >
     )
 }
 

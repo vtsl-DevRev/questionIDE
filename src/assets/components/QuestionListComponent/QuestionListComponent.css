@@ -1,0 +1,64 @@
+/* General body styles */
+body {
+    font-family: 'Arial', sans-serif;
+    background-color: #f5f6f9;
+    margin: 0;
+    padding: 0;
+}
+
+/* Container for the whole component */
+#questionsList {
+    max-width: 800px;
+    margin: 30px auto;
+    padding: 20px;
+    background-color: #ffffff;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Title styling */
+h1 {
+    font-size: 28px;
+    font-weight: 600;
+    color: #333;
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+/* List styling */
+ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+li {
+    margin-bottom: 15px;
+}
+
+/* Link styling */
+a {
+    font-size: 18px;
+    font-weight: 500;
+    color: #1e90ff;
+    text-decoration: none;
+    display: block;
+    padding: 12px 15px;
+    border-radius: 6px;
+    transition: background-color 0.2s ease, transform 0.2s ease;
+}
+
+a:hover {
+    background-color: #f0f8ff;
+    transform: translateY(-2px);
+}
+
+/* Optional: Add a border between questions */
+li:not(:last-child) {
+    border-bottom: 1px solid #e5e5e5;
+}
+
+/* Styling for the hover effect */
+a:hover {
+    cursor: pointer;
+    color: #0056b3;
+}
