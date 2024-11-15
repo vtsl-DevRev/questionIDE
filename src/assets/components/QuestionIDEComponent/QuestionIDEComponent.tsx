@@ -3,6 +3,8 @@ import { editor } from "monaco-editor";
 import "./QuestionIDEComponent.css";
 import Editor from '@monaco-editor/react';
 import axios from "axios";
+import ReactQuill from 'react-quill';
+import 'react-quill/dist/quill.snow.css';
 
 interface IEditorOptions extends editor.IStandaloneEditorConstructionOptions {
     acceptSuggestionOnEnter: "on" | "off" | "smart";
@@ -27,6 +29,28 @@ interface ApiResponse {
     timestamp: number;
 }
 
+interface Testcases {
+    input: string;
+    output: string;
+}
+
+interface Constraints {
+    time: string;
+    space: string;
+}
+
+interface Question {
+    id: number;
+    title: string;
+    description: string;
+    input: string;
+    output: string;
+    difficulty: string;
+    testcases: Testcases[];
+    constraints: Constraints;
+    tags: string;
+}
+
 const QuestionIDEComponent: React.FC = () => {
     const [language, setLanguage] = useState<string>("javascript");
     const [currCode, setCurrCode] = useState<string>(`// JavaScript Example
@@ -37,10 +61,48 @@ function example() {
   return "This is a JavaScript example";
 }`);
     const [theme, setTheme] = useState<string>("vs-dark");
-    const [fontSize, setFontSize] = useState<number>(20);
+    const [fontSize, setFontSize] = useState<number>(12);
     const [minimap, setMinimap] = useState<boolean>(true);
     const [input, setInput] = useState<string>("");
     const [output, setOutput] = useState<string>("");
+    const [personalNotes, setPersonalNotes] = useState<string>("");
+
+    const question: Question = {
+        id: 1,
+        title: "Two Sum",
+        description: "Given an array of integers nums and an integer target, return indices of the two numbers such that they add up to target.",
+        input: "[2,7,11,15], 9",
+        output: "[0,1]",
+        difficulty: "Easy",
+        testcases: [
+            {"input": "[2,7,11,15], 9", "output": "[0,1]"},
+            {"input": "[3,2,4], 6", "output": "[1,2]"},
+            {"input": "[3,3], 6", "output": "[0,1]"},
+            {"input": "[2,5,5,11], 10", "output": "[1,2]"},
+            {"input": "[1,2,3,4,5], 9", "output": "[3,4]"},
+            {"input": "[1, 3, 7, 9, 11], 15", "output": "[1, 3]"},
+            {"input": "[0, 4, 3, 0], 0", "output": "[0, 3]"},
+            {"input": "[-1, -2, -3, -4, -5], -8", "output": "[2, 4]"},
+            {"input": "[1, 1, 1, 1, 1], 2", "output": "[0, 1]"},
+            {"input": "[1, 2, 3, 4, 5], 11", "output": "[]"}
+        ],
+        constraints: { time: "O(n)", space: "O(n)" },
+        tags: "Array, Hash Table"
+    };
+
+    // const [question, setQuestion] = useState<Question | null>(null);
+
+    // setQuestion({
+    //     id: 1,
+    //     title: "Two Sum",
+    //     description: "Given an array of integers nums and an integer target, return indices of the two numbers such that they add up to target.", 
+    //     input: "[2,7,11,15], 9",
+    //     output: "[0,1]",
+    //     difficulty: "Easy",
+    //     testcases: [{ input: "[2,7,11,15], 9", output: "[0,1]" }],
+    //     constraints: { time: "O(n)", space: "O(n)" },
+    //     tags: "Array, Hash Table"
+    //   });
 
     const languageDefaults: { [key: string]: string } = {
         java: `// Java Example
@@ -232,7 +294,7 @@ function example() {
     };
 
     const ipEditorOptions: IEditorOptions = {
-        fontSize: 20,
+        fontSize: fontSize,
         minimap: {
             enabled: false,
         },
@@ -247,7 +309,7 @@ function example() {
     };
 
     const opEditorOptions: IEditorOptions = {
-        fontSize: 20,
+        fontSize: fontSize,
         minimap: {
             enabled: false,
         },
@@ -262,96 +324,130 @@ function example() {
     };
 
     return (
-        <div className="editor-container">
-            <div className="toolbar">
-                <select
-                    className="select-input language-select"
-                    value={language}
-                    onChange={handleLanguageChange}
-                >
-                    <option value="c">C</option>
-                    <option value="csharp">C#</option>
-                    <option value="cpp">C++</option>
-                    <option value="java">Java</option>
-                    <option value="python">Python</option>
-                    <option value="go">Go</option>
-                    <option value="javascript">JavaScript</option>
-                </select>
-
-                <select
-                    className="select-input"
-                    value={theme}
-                    onChange={handleThemeChange}
-                >
-                    <option value="vs-dark">Dark</option>
-                    <option value="vs">Light</option>
-                    <option value="hc-black">HC-Black</option>
-                </select>
-
-                <select
-                    className="select-input"
-                    value={fontSize}
-                    onChange={handleFontSizeChange}
-                >
-                    {[12, 14, 16, 18, 20, 22, 24, 26, 28, 30].map((size) => (
-                        <option key={size} value={size}>
-                            {size}px
-                        </option>
-                    ))}
-                </select>
-
-                <button
-                    className={`button ${minimap ? "active" : ""}`}
-                    onClick={handleMinimapToggle}
-                >
-                    {minimap ? "Hide Minimap" : "Show Minimap"}
-                </button>
-
-                <button
-                    className="button save-button"
-                    onClick={handleSave}
-                    title="Ctrl/Cmd + S"
-                >
-                    Submit
-                </button>
-            </div>
-
-            <div className="editor-wrapper">
-                <div id='code'>
-                    <Editor
-                        width="100%"
-                        height="700px"
-                        language={language}
-                        theme={theme}
-                        value={currCode}
-                        options={editorOptions}
-                        onChange={(value) => setCurrCode(value || "")}
-                        onMount={handleEditorDidMount}
-                    />
+        <div className="questionIDE">
+            <div className="question-container">
+                <div id='question'>
+                    <h1>{question?.title}</h1>
+                    <p>{question?.description}</p>
+                    <div id='questionIO'>
+                        <div>
+                            <h2>Input</h2>
+                            <p>{question?.input}</p>
+                        </div>
+                        <div>
+                            <h2>Output</h2>
+                            <p>{question?.output}</p>
+                        </div>
+                    </div>
+                    <h2>Testcases</h2>
+                    <div className="testcases">
+                        {question?.testcases.map((testcase, index) => (
+                            <div key={index} className="testcase">
+                                <h3>Testcase {index + 1}</h3>
+                                <p><strong>Input:</strong> {testcase.input}</p>
+                                <p><strong>Output:</strong> {testcase.output}</p>
+                            </div>
+                        ))}
+                    </div>
+                    <h2>Constraints</h2>
+                    <p><strong>Time:</strong> {question?.constraints.time}</p>
+                    <p><strong>Space:</strong> {question?.constraints.space}</p>
                 </div>
-                <div className='IO'>
-                    <div id='inputEditor'>
-                        <h2>Input</h2>
+                <div id='notes'>
+                    <ReactQuill theme="snow" value={personalNotes} onChange={(notes) => setPersonalNotes(notes)} />
+                </div>
+            </div>
+            <div className="editor-container">
+                <div className="toolbar">
+                    <select
+                        className="select-input language-select"
+                        value={language}
+                        onChange={handleLanguageChange}
+                    >
+                        <option value="c">C</option>
+                        <option value="csharp">C#</option>
+                        <option value="cpp">C++</option>
+                        <option value="java">Java</option>
+                        <option value="python">Python</option>
+                        <option value="go">Go</option>
+                        <option value="javascript">JavaScript</option>
+                    </select>
+
+                    <select
+                        className="select-input"
+                        value={theme}
+                        onChange={handleThemeChange}
+                    >
+                        <option value="vs-dark">Dark</option>
+                        <option value="vs">Light</option>
+                        <option value="hc-black">HC-Black</option>
+                    </select>
+
+                    <select
+                        className="select-input"
+                        value={fontSize}
+                        onChange={handleFontSizeChange}
+                    >
+                        {[12, 14, 16, 18, 20, 22, 24, 26, 28, 30].map((size) => (
+                            <option key={size} value={size}>
+                                {size}px
+                            </option>
+                        ))}
+                    </select>
+
+                    <button
+                        className={`button ${minimap ? "active" : ""}`}
+                        onClick={handleMinimapToggle}
+                    >
+                        {minimap ? "Hide Minimap" : "Show Minimap"}
+                    </button>
+
+                    <button
+                        className="button save-button"
+                        onClick={handleSave}
+                        title="Ctrl/Cmd + S"
+                    >
+                        Submit
+                    </button>
+                </div>
+
+                <div className="editor-wrapper">
+                    <div id='code'>
                         <Editor
                             width="100%"
-                            height="300px"
-                            language="plaintext"
+                            height="100%"
+                            language={language}
                             theme={theme}
-                            value={input}
-                            onChange={(ivalue) => setInput(ivalue || "")}
-                            options={ipEditorOptions}
+                            value={currCode}
+                            options={editorOptions}
+                            onChange={(value) => setCurrCode(value || "")}
+                            onMount={handleEditorDidMount}
                         />
                     </div>
-                    <div id='outputEditor'>
-                        <h2>Output</h2>
-                        <Editor
-                            width="100%"
-                            height="300px"
-                            language="plaintext"
-                            theme={theme}
-                            value={output}
-                            options={opEditorOptions}
-                        />
+                    <div className='IO'>
+                        <div id='inputEditor'>
+                            <h2>Input</h2>
+                            <Editor
+                                width="100%"
+                                height="300px"
+                                language="plaintext"
+                                theme={theme}
+                                value={input}
+                                onChange={(ivalue) => setInput(ivalue || "")}
+                                options={ipEditorOptions}
+                            />
+                        </div>
+                        <div id='outputEditor'>
+                            <h2>Output</h2>
+                            <Editor
+                                width="100%"
+                                height="300px"
+                                language="plaintext"
+                                theme={theme}
+                                value={output}
+                                options={opEditorOptions}
+                            />
+                        </div>
                     </div>
                 </div>
             </div>
