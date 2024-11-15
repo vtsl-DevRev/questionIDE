@@ -2,7 +2,7 @@
     display: flex;
     flex-direction: column;
     height: 100vh;
-    background-color: #1e1e1e;
+    background-color: skyblue;
     padding: 1rem;
 }
 
@@ -64,6 +64,25 @@
 .editor-wrapper {
     border-radius: 4px;
     overflow: hidden;
+}
+
+.IO {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    margin-top: 0;
+}
+
+#inputEditor, #outputEditor {
+    flex: 1;
+    height: 100%;
+    width: 100%;
+    border: none;
+    border-radius: 4px;
+    color: #ffffff;
+    font-size: 0.9rem;
+    padding: 1rem;
+    outline: none;
 }
 
 /* Responsive styles */

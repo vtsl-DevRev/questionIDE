@@ -109,7 +109,7 @@ function example() {
         const data = {
             code: currCode,
             language: pairings[chosenLanguage],
-            input: '7'
+            input: input
         };
 
         const config = {
@@ -231,6 +231,36 @@ function example() {
         theme: theme,
     };
 
+    const ipEditorOptions: IEditorOptions = {
+        fontSize: 20,
+        minimap: {
+            enabled: false,
+        },
+        fontFamily: "'Fira Code', Consolas, 'Courier New', monospace",
+        fontLigatures: true,
+        wordWrap: "on",
+        lineNumbers: "on",
+        renderWhitespace: "selection",
+        scrollBeyondLastLine: false,
+        readOnly: false,
+        acceptSuggestionOnEnter: "off"
+    };
+
+    const opEditorOptions: IEditorOptions = {
+        fontSize: 20,
+        minimap: {
+            enabled: false,
+        },
+        fontFamily: "'Fira Code', Consolas, 'Courier New', monospace",
+        fontLigatures: true,
+        wordWrap: "on",
+        lineNumbers: "on",
+        renderWhitespace: "selection",
+        scrollBeyondLastLine: false,
+        readOnly: true,
+        acceptSuggestionOnEnter: "off"
+    };
+
     return (
         <div className="editor-container">
             <div className="toolbar">
@@ -290,7 +320,7 @@ function example() {
                 <div id='code'>
                     <Editor
                         width="100%"
-                        height="600px"
+                        height="700px"
                         language={language}
                         theme={theme}
                         value={currCode}
@@ -299,16 +329,30 @@ function example() {
                         onMount={handleEditorDidMount}
                     />
                 </div>
-                <div id='I/O'>
-                    {/* <Editor
-                        width="100%"
-                        height="20%"
-                        language="plaintext"
-                        theme={theme}
-                        value={input}
-                        onChange={(newValue:string) => setInput(newValue)}
-                        options={editorOptions}
-                    /> */}
+                <div className='IO'>
+                    <div id='inputEditor'>
+                        <h2>Input</h2>
+                        <Editor
+                            width="100%"
+                            height="300px"
+                            language="plaintext"
+                            theme={theme}
+                            value={input}
+                            onChange={(ivalue) => setInput(ivalue || "")}
+                            options={ipEditorOptions}
+                        />
+                    </div>
+                    <div id='outputEditor'>
+                        <h2>Output</h2>
+                        <Editor
+                            width="100%"
+                            height="300px"
+                            language="plaintext"
+                            theme={theme}
+                            value={output}
+                            options={opEditorOptions}
+                        />
+                    </div>
                 </div>
             </div>
         </div>
