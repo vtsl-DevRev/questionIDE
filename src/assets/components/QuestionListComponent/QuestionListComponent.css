@@ -6,59 +6,151 @@ body {
     padding: 0;
 }
 
-/* Container for the whole component */
-#questionsList {
-    max-width: 800px;
+/* Main container layout */
+#questionsListContainer {
+    display: flex;
+    gap: 30px;
+    max-width: 1200px;
     margin: 30px auto;
-    padding: 20px;
-    background-color: #ffffff;
-    border-radius: 8px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    padding: 0 20px;
 }
 
-/* Title styling */
-h1 {
+/* Filter panel styles */
+#filterPanel {
+    flex: 0 0 250px;
+    background-color: #ffffff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    height: fit-content;
+}
+
+#filterPanel h2 {
+    font-size: 24px;
+    color: #333;
+    margin-top: 0;
+    margin-bottom: 20px;
+}
+
+#filterPanel h3 {
+    font-size: 18px;
+    color: #555;
+    margin: 15px 0 10px;
+}
+
+/* Filter button containers */
+#difficultyButtons,
+#tagButtons {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    margin-bottom: 20px;
+}
+
+.buttonPanel {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 8px;
+}
+
+/* Filter button styles */
+#filterPanel button {
+    padding: 8px 12px;
+    border: 1px solid #e0e0e0;
+    border-radius: 4px;
+    background-color: #ffffff;
+    color: #666;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    text-align: left;
+    font-size: 14px;
+    width: max-content;
+}
+
+#filterPanel button:hover {
+    background-color: #f5f6f9;
+    border-color: #1e90ff;
+    color: #1e90ff;
+}
+
+#filterPanel button.selected {
+    background-color: #1e90ff;
+    color: white;
+    border-color: #1e90ff;
+}
+
+/* Questions list styles */
+#questionsList {
+    flex: 1;
+    background-color: #ffffff;
+    padding: 25px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    min-width: 0; /* Prevents flex item from overflowing */
+}
+
+#questionsList h1 {
     font-size: 28px;
     font-weight: 600;
     color: #333;
-    margin-bottom: 20px;
+    margin-top: 0;
+    margin-bottom: 25px;
     text-align: center;
 }
 
 /* List styling */
-ul {
+#questionsList ul {
     list-style-type: none;
     padding: 0;
+    margin: 0;
 }
 
-li {
+#questionsList li {
     margin-bottom: 15px;
 }
 
 /* Link styling */
-a {
-    font-size: 18px;
+#questionsList a {
+    font-size: 16px;
     font-weight: 500;
     color: #1e90ff;
     text-decoration: none;
     display: block;
     padding: 12px 15px;
     border-radius: 6px;
-    transition: background-color 0.2s ease, transform 0.2s ease;
+    transition: all 0.2s ease;
 }
 
-a:hover {
+#questionsList a:hover {
     background-color: #f0f8ff;
     transform: translateY(-2px);
-}
-
-/* Optional: Add a border between questions */
-li:not(:last-child) {
-    border-bottom: 1px solid #e5e5e5;
-}
-
-/* Styling for the hover effect */
-a:hover {
-    cursor: pointer;
     color: #0056b3;
+}
+
+/* Divider between questions */
+#questionsList li:not(:last-child) {
+    border-bottom: 1px solid #e5e5e5;
+    padding-bottom: 15px;
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+    #questionsListContainer {
+        flex-direction: column;
+        padding: 15px;
+    }
+
+    #filterPanel {
+        flex: none;
+        width: auto;
+    }
+
+    #questionsList {
+        padding: 20px;
+    }
+
+    #questionsList h1 {
+        font-size: 24px;
+    }
 }

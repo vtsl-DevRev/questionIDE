@@ -27,7 +27,6 @@ interface Question {
 }
 
 const QuestionPageComponent: React.FC = () => {
-    const [showList, setShowList] = useState(true);
     const [clickedQuestion, setClickedQuestion] = useState<Question | null>(null);
     const navigate = useNavigate();
 
@@ -328,21 +327,20 @@ const QuestionPageComponent: React.FC = () => {
 
     const handleQuestionClick = (question: Question) => {
         setClickedQuestion(question);
-        setShowList(false);
         navigate(`/${question.id}`);
     };
 
     return (
-        <div>
-            {showList ? (
-                <QuestionListComponent questionsData={questionsData} handleQuestionClick={handleQuestionClick} />
-            ) : null}
-
-            <Routes>
-                <Route path="/" element={questionsData && <QuestionListComponent questionsData={questionsData} handleQuestionClick={handleQuestionClick} />} />
-                <Route path="/:id" element={clickedQuestion && <QuestionIDEComponent question={clickedQuestion} />} />
-            </Routes>
-        </div>
+        <Routes>
+            <Route
+                path="/"
+                element={ <QuestionListComponent questionsData={questionsData} handleQuestionClick={handleQuestionClick} /> }
+            />
+            <Route
+                path="/:id"
+                element={ clickedQuestion && <QuestionIDEComponent question={clickedQuestion} /> }
+            />
+        </Routes>
     );
 };
 
