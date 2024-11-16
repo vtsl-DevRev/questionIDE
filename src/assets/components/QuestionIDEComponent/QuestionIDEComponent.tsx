@@ -5,6 +5,7 @@ import Editor from '@monaco-editor/react';
 import axios from "axios";
 import ReactQuill from 'react-quill';
 import 'react-quill/dist/quill.snow.css';
+import { useLocation } from "react-router-dom";
 
 interface IEditorOptions extends editor.IStandaloneEditorConstructionOptions {
     acceptSuggestionOnEnter: "on" | "off" | "smart";
@@ -70,6 +71,9 @@ function example() {
     const [input, setInput] = useState<string>("");
     const [output, setOutput] = useState<string>("");
     const [personalNotes, setPersonalNotes] = useState<string>("");
+
+    const location = useLocation();
+    question = !question ? location.state?.question : question;
 
     console.log(question);
     

@@ -5,9 +5,10 @@
     width: 98%;
     padding: 1rem;
     overflow-y: hidden;
+    background-color: #C7CEFF;;
 }
 
-.question-container {
+.questionIDE .question-container {
     display: flex;
     flex-direction: column;
     height: 100vh;
@@ -16,14 +17,14 @@
     padding: 1rem;
 }
 
-#questionIO {
+.questionIDE #questionIO {
     display: flex;
     flex-direction: row;
     width: 100%;
     gap: 5rem;
 }
 
-.editor-container {
+.questionIDE .editor-container {
     display: flex;
     flex-direction: column;
     height: 100vh;
@@ -31,7 +32,7 @@
     padding: 1rem;
 }
 
-.toolbar {
+.questionIDE .toolbar {
     display: flex;
     gap: 1rem;
     padding: 0.5rem;
@@ -40,7 +41,7 @@
     margin-bottom: 1rem;
 }
 
-.select-input {
+.questionIDE .select-input {
     padding: 0.5rem;
     border: 1px solid #3c3c3c;
     border-radius: 4px;
@@ -51,15 +52,15 @@
     outline: none;
 }
 
-.select-input:hover {
+.questionIDE .select-input:hover {
     background-color: #4c4c4c;
 }
 
-.select-input:focus {
+.questionIDE .select-input:focus {
     border-color: #007acc;
 }
 
-.button {
+.questionIDE .button {
     padding: 0.5rem 1rem;
     border: none;
     border-radius: 4px;
@@ -70,45 +71,45 @@
     transition: background-color 0.2s;
 }
 
-.button:hover {
+.questionIDE .button:hover {
     background-color: #4c4c4c;
 }
 
-.button.active {
+.questionIDE .button.active {
     background-color: #007acc;
 }
 
-.save-button {
+.questionIDE .save-button {
     background-color: #2ea043;
 }
 
-.save-button:hover {
+.questionIDE .save-button:hover {
     background-color: #3fb950;
 }
 
-.run-button {
+.questionIDE .run-button {
     background-color: #d5a546;
     color: black;
 }
 
-.run-button:hover {
+.questionIDE .run-button:hover {
     background-color: #f0c874;
 }
 
-.editor-wrapper {
+.questionIDE .editor-wrapper {
     border-radius: 4px;
     overflow: hidden;
 }
 
-.IO {
+.questionIDE .IO {
     display: flex;
     flex-direction: row;
     width: 100%;
     margin-top: 0;
 }
 
-#inputEditor,
-#outputEditor {
+.questionIDE #inputEditor,
+.questionIDE #outputEditor {
     flex: 1;
     height: 100%;
     width: 100%;
@@ -120,15 +121,15 @@
     outline: none;
 }
 
-#code {
+.questionIDE #code {
     height: 70%;
 }
 
-.ioEditor {
-    scrollbar-width:none;
+.questionIDE .ioEditor {
+    scrollbar-width: none;
 }
 
-#question {
+.questionIDE #question {
     flex: 1;
     height: 75%;
     width: 96%;
@@ -140,17 +141,17 @@
     padding: 1rem;
     outline: none;
     overflow: auto;
-    scrollbar-width:none;
+    scrollbar-width: none;
     margin-bottom: 20px;
 }
 
-#question h1 {
+.questionIDE #question h1 {
     font-size: 1.5rem;
     margin-bottom: 1rem;
     color: #2FBFDE;
 }
 
-#notes {
+.questionIDE #notes {
     height: 25%;
     width: 96%;
     border: none;
@@ -161,16 +162,16 @@
     padding: 1rem;
     outline: none;
     overflow: auto;
-    scrollbar-width:none;
+    scrollbar-width: none;
 }
 
-.testcases {
+.questionIDE .testcases {
     display: flex;
     flex-direction: column;
     gap: 1rem;
 }
 
-.testcase {
+.questionIDE .testcase {
     padding: 1rem;
     background-color: rgba(255, 255, 255, 0.05);
     border-radius: 6px;
@@ -178,14 +179,13 @@
 }
 
 @media (max-width: 768px) {
-    .toolbar {
+    .questionIDE .toolbar {
         flex-wrap: wrap;
     }
 
-    .select-input,
-    .button {
+    .questionIDE .select-input,
+    .questionIDE .button {
         flex: 1;
         min-width: 120px;
     }
 }
-
