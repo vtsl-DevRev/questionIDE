@@ -450,6 +450,7 @@ function example() {
                                 value={input}
                                 onChange={(ivalue) => setInput(ivalue || "")}
                                 options={ipEditorOptions}
+                                className="ioEditor"
                             />
                         </div>
                         <div id='outputEditor'>
@@ -461,6 +462,7 @@ function example() {
                                 theme={theme}
                                 value={output}
                                 options={opEditorOptions}
+                                className="ioEditor"
                             />
                         </div>
                     </div>

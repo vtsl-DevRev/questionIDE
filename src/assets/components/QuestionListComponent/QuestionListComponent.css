@@ -1,7 +1,7 @@
 /* General body styles */
 body {
     font-family: 'Arial', sans-serif;
-    background-color: #f5f6f9;
+    background-color: #C7CEFF; /* Light purple-blue */
     margin: 0;
     padding: 0;
 }
@@ -18,7 +18,7 @@ body {
 /* Filter panel styles */
 #filterPanel {
     flex: 0 0 250px;
-    background-color: #ffffff;
+    background-color: white;
     padding: 20px;
     border-radius: 8px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
@@ -27,14 +27,14 @@ body {
 
 #filterPanel h2 {
     font-size: 24px;
-    color: #333;
+    color: #5A6ACF; /* Medium blue */
     margin-top: 0;
     margin-bottom: 20px;
 }
 
 #filterPanel h3 {
     font-size: 18px;
-    color: #555;
+    color: #2FBFDE; /* Light teal-blue */
     margin: 15px 0 10px;
 }
 
@@ -59,8 +59,8 @@ body {
     padding: 8px 12px;
     border: 1px solid #e0e0e0;
     border-radius: 4px;
-    background-color: #ffffff;
-    color: #666;
+    background-color: white;
+    color: black;
     cursor: pointer;
     transition: all 0.2s ease;
     text-align: left;
@@ -69,21 +69,21 @@ body {
 }
 
 #filterPanel button:hover {
-    background-color: #f5f6f9;
-    border-color: #1e90ff;
-    color: #1e90ff;
+    background-color: #C7CEFF; /* Light purple-blue */
+    border-color: #5A6ACF; /* Medium blue */
+    color: #5A6ACF;
 }
 
 #filterPanel button.selected {
-    background-color: #1e90ff;
+    background-color: #5A6ACF; /* Medium blue */
     color: white;
-    border-color: #1e90ff;
+    border-color: #5A6ACF;
 }
 
 /* Questions list styles */
 #questionsList {
     flex: 1;
-    background-color: #ffffff;
+    background-color: white;
     padding: 25px;
     border-radius: 8px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
@@ -93,7 +93,7 @@ body {
 #questionsList h1 {
     font-size: 28px;
     font-weight: 600;
-    color: #333;
+    color: #5A6ACF; /* Medium blue */
     margin-top: 0;
     margin-bottom: 25px;
     text-align: center;
@@ -114,7 +114,7 @@ body {
 #questionsList a {
     font-size: 16px;
     font-weight: 500;
-    color: #1e90ff;
+    color: #2FBFDE; /* Light teal-blue */
     text-decoration: none;
     display: block;
     padding: 12px 15px;
@@ -123,9 +123,9 @@ body {
 }
 
 #questionsList a:hover {
-    background-color: #f0f8ff;
+    background-color: #C7CEFF; /* Light purple-blue */
     transform: translateY(-2px);
-    color: #0056b3;
+    color: #5A6ACF; /* Medium blue */
 }
 
 /* Divider between questions */
